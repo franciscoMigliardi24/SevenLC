@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+    <title>Seven LC</title>
+</head>
+<body>
+    <div class="principal">
+        <div class="hijo">
+            <h1>Seven Interno Tony Leyes</h1>
+            <label for="avatar">Excel del Seven:</label>
+            <input type="file" id="docpicker" accept=".csv,application/vnd.ms-excel,.xlt,application/vnd.ms-excel,.xla,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xltx,application/vnd.openxmlformats-officedocument.spreadsheetml.template,.xlsm,application/vnd.ms-excel.sheet.macroEnabled.12,.xltm,application/vnd.ms-excel.template.macroEnabled.12,.xlam,application/vnd.ms-excel.addin.macroEnabled.12,.xlsb,application/vnd.ms-excel.sheet.binary.macroEnabled.12">
+            </div>
+        </div>
+
+
+<div id="dataviewer">
+</body>
+</html>
+
+
+<script>
+var file = document.getElementById('docpicker')
+var viewer = document.getElementById('dataviewer')
+file.addEventListener('change', importFile);
+
+function importFile(evt) {
+  var f = evt.target.files[0];
+
+  if (f) {
+    var r = new FileReader();
+    r.onload = e => {
+      var contents = processExcel(e.target.result);
+      console.log(contents)
+    }
+    r.readAsBinaryString(f);
+  } else {
+    console.log("Failed to load file");
+  }
+}
+
+function processExcel(data) {
+  var workbook = XLSX.read(data, {
+    type: 'binary'
+  });
+
+  var firstSheet = workbook.SheetNames[0];
+  var data = to_json(workbook);
+  return data
+};
+
+function to_json(workbook) {
+  var result = {};
+  workbook.SheetNames.forEach(function(sheetName) {
+    var roa = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {
+      header: 1
+    });
+    if (roa.length) result[sheetName] = roa;
+  });
+  return JSON.stringify(result, 2, 2);
+};
+
+</script>
+
+
+
+
+
+<script>
+/*
+Metodo para contar la cantidad total de jugadores
+*/
+
+
+/*
+Metodo para contar la cantidad de jugadores por division
+*/
+
+
+/*
+Metodo para dividir por 12 (o 15) la cantidad total de jugadores y ver cuantos equipos se pueden formar
+Aproximar a entero mas chico
+*/
+
+
+/*
+Metodo para separar "Forwards" de "Tres Cuartos"
+*/
+
+
+/*
+Metodo para separar "Bueno", "Medio" y "Bajo" (Habilidad)
+*/
+
+/*
+Metodo para crear equipos
+segun la cantidad de equipos primero hacer los forwards, uno bueno para cada uno, desp medio, desp bajo
+desp los 3/4 buenos-medios-bajos
+*/
+
+</script>
+
+<style>
+    body{
+        height: 100vh;
+        width: 100vw;
+        background-image: linear-gradient(green 33.33%, blue 33.33%, blue 66.66%, yellow 66.66%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin: 0px;
+    }
+
+    .principal{
+        display: flex;
+    }
+
+    .hijo{
+        margin: auto;
+    }
+
+    h1{
+        color: aliceblue;
+    }
+    p{
+        color: aliceblue;
+    }
+</style>
+
+
